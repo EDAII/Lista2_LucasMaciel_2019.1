@@ -2,6 +2,7 @@ import os
 from searchMethods import *
 from listArchives import *
 from movie import *
+from ytPlaylist import *
 
 DEFAULT_PATH = './videos'
 
@@ -49,6 +50,7 @@ def list_menu():
             elif op == 2:
                 path = input("Caminho(ex: /movies): ")
                 list_movies(path)
+                input()
             elif op == 3:
                 title = input("Nome do Video:")
                 play_movie(DEFAULT_PATH+"/"+title)
@@ -64,16 +66,25 @@ def download_menu():
         print("\t(3) - Voltar para o Menu Principal")
         print("\t(0) - Fechar Programa")
         print("---------------------------------------------------------------------------------------------")
+        
         try:
             op = int(input("Opcoes(Digite o NUMERO Correspondente): "))
         except:
             print("Digite um valor valido")
-        finally:
+
+        try:
             if op == 0: exit()
             elif op == 1:
-                url = input("Digite a url da Playlist")
+                url, directory = (str(i) for i in input("Digite a url da Playlist: ").split())
+                print(url+","+directory)
+                downloadPlaylist(url, directory)
             elif op == 3:
                 main_menu()
+            input()
+        except:
+            print("Deve ter apenas dois argumentos. Formato correto: http://url directory")
+            input()
+            continue
 
     
 main_menu()

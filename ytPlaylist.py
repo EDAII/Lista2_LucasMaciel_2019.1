@@ -106,7 +106,6 @@ def getPlaylistVideoUrls(page_content, url):
 
 
 #function added to get audio files along with the video files from the playlist
-
 def download_Video_Audio(path, vid_url, file_no):
     try:
         yt = YouTube(vid_url)
@@ -126,17 +125,6 @@ def download_Video_Audio(path, vid_url, file_no):
         print("successfully downloaded", yt.title, "!")
     except OSError:
         print(yt.title, "already exists in this directory! Skipping video...")
-
-    # try:
-    #     os.rename(yt.title+'.mp4',str(file_no)+'.mp4')
-    #     aud= 'ffmpeg -i '+str(file_no)+'.mp4'+' '+str(file_no)+'.wav'
-    #     final_audio='lame '+str(file_no)+'.wav'+' '+str(file_no)+'.mp3'
-    #     os.system(aud)
-    #     os.system(final_audio)
-    #     os.remove(str(file_no)+'.wav')
-    #     print("sucessfully converted",yt.title, "into audio!")
-    # except OSError:
-    #     print(yt.title, "There is some problem with the file names...")
  
 
 def printUrls(vid_urls):
@@ -144,28 +132,21 @@ def printUrls(vid_urls):
         print(url)
         time.sleep(0.04)
         
-if __name__ == '__main__':
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print('USAGE: python ytPlaylistDL.py playlistURL OR python ytPlaylistDL.py playlistURL destPath')
+def downloadPlaylist(url, directory = os.getcwd()):
+    # make directory if dir specified doesn't exist
+    try:
+        os.makedirs(directory, exist_ok=True)
+    except OSError as e:
+        print(e.reason)
         exit(1)
-    else:
-        url = sys.argv[1]
-        directory = os.getcwd() if len(sys.argv) != 3 else sys.argv[2]
-    
-        # make directory if dir specified doesn't exist
-        try:
-            os.makedirs(directory, exist_ok=True)
-        except OSError as e:
-            print(e.reason)
-            exit(1)
 
-        if not url.startswith("http"):
-            url = 'https://' + url
+    if not url.startswith("http"):
+        url = 'https://' + url
 
-        playlist_page_content = getPageHtml(url)
-        vid_urls_in_playlist = getPlaylistVideoUrls(playlist_page_content, url)
+    playlist_page_content = getPageHtml(url)
+    vid_urls_in_playlist = getPlaylistVideoUrls(playlist_page_content, url)
 
-        # downloads videos and audios
-        for i,vid_url in enumerate(vid_urls_in_playlist):
-            download_Video_Audio(directory, vid_url, i)
-            time.sleep(1)
+    # downloads videos and audios
+    for i,vid_url in enumerate(vid_urls_in_playlist):
+        download_Video_Audio(directory, vid_url, i)
+        time.sleep(1)
