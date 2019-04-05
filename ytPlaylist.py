@@ -68,16 +68,16 @@ def getPageHtml(url):
         exit(1)
 
 def getPlaylistUrlID(url):
-    if 'list=' in url:
+    # if 'list=' in url:
         eq_idx = url.index('=') + 1
         pl_id = url[eq_idx:]
         if '&' in url:
             amp = url.index('&')
             pl_id = url[eq_idx:amp]
         return pl_id   
-    else:
-        print(url, "is not a youtube playlist.")
-        exit(1)
+    # else:
+    #     print(url, "is not a youtube playlist.")
+    #     exit(1)
 
 def getFinalVideoUrl(vid_urls):
     final_urls = []
@@ -118,7 +118,7 @@ def download_Video_Audio(path, vid_url, file_no):
     except Exception:  # Sorts videos by resolution and picks the highest quality video if a 720p video doesn't exist
         video = sorted(yt.filter("mp4"), key=lambda video: int(video.resolution[:-1]), reverse=True)[0]
 
-    print("downloading", yt.title+" Video and Audio...")
+    print("downloading", yt.title)
     try:
         bar = progressBar()
         video.first().download(path)
