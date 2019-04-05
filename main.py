@@ -85,6 +85,13 @@ def play_menu(path):
                 list_movies(path)
                 input()
             elif op == 2:
+                videos = list_movies(path)
+                for v in videos:
+                    play_movie(path, v)
+                    if v != videos[-1]:
+                        op_play = str(input("Continuar lista de Reprodução?[S/N]"))
+                        if op_play.lower() == 'n':
+                            break
                 input()
             elif op == 3:
                 title = str(input("Nome do Video:"))

@@ -8,9 +8,12 @@ def list_movies(path):
         print("---------------------------------------------------------------------------------------------")
         print("VIDEOS ENCONTRADOS NA PASTA:\n")
         pattern = "*.mp4"
+        videos = []
         for entry in listOfFiles:
             if fnmatch.fnmatch(entry, pattern):
                 print("\t"+entry)
+                videos.append(entry)
+        return videos
     except FileNotFoundError:
         print("Pasta nao encontrada")
 
