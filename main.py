@@ -49,7 +49,6 @@ def list_menu():
             if op == 0:
                 exit()
             elif op == 1:
-                # list_movies(DEFAULT_PATH)
                 play_menu(DEFAULT_PATH)
                 input()
             elif op == 2:
@@ -82,10 +81,12 @@ def play_menu(path):
             if op == 0:
                 exit()
             elif op == 1:
-                list_movies(path)
+                videos = get_movies(path)
+                list_movies(videos)
                 input()
             elif op == 2:
-                videos = list_movies(path)
+                videos = get_movies(path)
+                list_movies(videos)
                 for v in videos:
                     play_movie(path, v)
                     if v != videos[-1]:
@@ -94,6 +95,9 @@ def play_menu(path):
                             break
                 input()
             elif op == 3:
+                videos = get_movies(path)
+                list_movies(videos)
+                print("---------------------------------------------------------------------------------------------")
                 title = str(input("Nome do Video:"))
                 play_movie(path, title)
             elif op == 4:
@@ -124,12 +128,12 @@ def download_menu():
                 url = args[0]
 
                 if (len(args) == 1):
-                    downloadPlaylist(url)
+                    downloadPlaylist(url, DEFAULT_PATH)
                 elif (len(args) == 2):
                     directory = args[1]
                     downloadPlaylist(url, directory)
-                input("\nConcluído! Pressione [Enter] para Coninuar")
-            except:
+                input("\nConcluído! Pressione [Enter] para Continuar")
+            except IndexError:
                 print("Deve ter apenas dois argumentos. Formato correto: http://url directory")
                 input()
                 continue

@@ -69,12 +69,12 @@ def getPageHtml(url):
 
 def getPlaylistUrlID(url):
     # if 'list=' in url:
-        eq_idx = url.index('=') + 1
-        pl_id = url[eq_idx:]
-        if '&' in url:
-            amp = url.index('&')
-            pl_id = url[eq_idx:amp]
-        return pl_id   
+    eq_idx = url.index('=') + 1
+    pl_id = url[eq_idx:]
+    if '&' in url:
+        amp = url.index('&')
+        pl_id = url[eq_idx:amp]
+    return pl_id   
     # else:
     #     print(url, "is not a youtube playlist.")
     #     exit(1)
