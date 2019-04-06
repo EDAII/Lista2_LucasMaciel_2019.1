@@ -11,7 +11,7 @@ def main_menu():
     op = 0
     while True:
         os.system('clear')
-        print("--------------------------------- REPRODUTOR DE VIDEOS -------------------------------------\n\n")
+        print("---------------------------------- PLAYTUBE TERMINATOR -------------------------------------\n\n")
         print("\t(1) - Listar Videos")
         print("\t(2) - Baixar PlayList do Youtube")
         print("\t(0) - Fechar Programa")
@@ -45,29 +45,36 @@ def list_menu():
             op = int(input("Opcoes(Digite o NUMERO Correspondente): "))
         except:
             print("Digite um valor valido")
-        finally:
-            if op == 0:
-                exit()
-            elif op == 1:
-                play_menu(DEFAULT_PATH)
+        
+        if op == 0:
+            exit()
+        elif op == 1:
+            play_menu(DEFAULT_PATH)
+            input()
+        elif op == 2:
+            list_dir()
+            print("---------------------------------------------------------------------------------------------")
+            path = str(input("Caminho(ex: /movies): "))
+            if not os.path.exists(path):
+                print("Pasta não encontrada")
                 input()
-            elif op == 2:
-                path = str(input("Caminho(ex: /movies): "))
-                play_menu(path)
-                input()
-            elif op == 3:
-                list_dir()
-                input()
-            elif op == 4:
-                main_menu()
+                continue
+            play_menu(path)
+            input()
+        elif op == 3:
+            list_dir()
+            input()
+        elif op == 4:
+            main_menu()
 
 
 def play_menu(path):
     op = 0
     while True:
         os.system('clear')
-        print("---------------------------------- Lista de Reprodução -------------------------------------\n\n")
-        print("\t(1) -  Listar Videos")
+        print("---------------------------------- Lista de Reprodução -------------------------------------")
+        print("pasta atual: "+path+"\n\n")
+        print("\t(1) - Listar Videos")
         print("\t(2) - Reproduzir Lista")
         print("\t(3) - Reproduzir video")
         print("\t(4) - Voltar para Lista de Pastas")

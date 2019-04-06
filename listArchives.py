@@ -21,7 +21,7 @@ def list_movies(videos=[]):
     print("---------------------------------------------------------------------------------------------")
     print("VIDEOS ENCONTRADOS NA PASTA:\n")
     videos = insertion_sort(videos)
-    for i in range(len(videos) - 1):
+    for i in range(len(videos)):
         print(i, "-", end="")
         print("\t"+videos[i])
 
