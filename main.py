@@ -82,8 +82,9 @@ def play_menu(path):
         print("---------------------------------------------------------------------------------------------")
         try:
             op = int(input("Opcoes(Digite o NUMERO Correspondente): "))
-        except:
+        except ValueError:
             print("Digite um valor valido")
+            continue
         finally:
             if op == 0:
                 exit()
@@ -94,8 +95,9 @@ def play_menu(path):
             elif op == 2:
                 videos = get_movies(path)
                 list_movies(videos)
+                print("---------------------------------------------------------------------------------------------")
                 for v in videos:
-                    play_movie(path, v)
+                    play_movie(path, v[0])
                     if v != videos[-1]:
                         op_play = str(input("Continuar lista de Reprodução?[S/N]"))
                         if op_play.lower() == 'n':
@@ -103,10 +105,11 @@ def play_menu(path):
                 input()
             elif op == 3:
                 videos = get_movies(path)
+                print("---------------------------------------------------------------------------------------------")
                 list_movies(videos)
                 print("---------------------------------------------------------------------------------------------")
-                title = str(input("Nome do Video:"))
-                play_movie(path, title)
+                title = str(input("Video a ser reproduzido('nomevideo.mp4' ou 'indice'):"))
+                play_movie(path, videos, title)
             elif op == 4:
                 list_menu()
 
@@ -117,7 +120,7 @@ def download_menu():
         os.system('clear')
         print("---------------------------------- Baixar Videos do Youtube ---------------------------------\n\n")
         print("\t(1) - PlayList Youtube")
-        print("\t(3) - Voltar para o Menu Principal")
+        print("\t(2) - Voltar para o Menu Principal")
         print("\t(0) - Fechar Programa")
         print("---------------------------------------------------------------------------------------------")
 
@@ -144,7 +147,7 @@ def download_menu():
                 print("Deve ter apenas dois argumentos. Formato correto: http://url directory")
                 input()
                 continue
-        elif op == 3:
+        elif op == 2:
             main_menu()
 
 
