@@ -1,6 +1,5 @@
 from moviepy.editor import VideoFileClip
 import pygame
-from pygame.locals import *
 import re
 
 

@@ -1,5 +1,5 @@
 import os
-from searchMethods import *
+from sortMethods import *
 from listArchives import *
 from movie import *
 from ytPlaylist import *
@@ -12,7 +12,7 @@ def main_menu():
     while True:
         os.system('clear')
         print("---------------------------------- PLAYTUBE TERMINATOR -------------------------------------\n\n")
-        print("\t(1) - Listar Videos")
+        print("\t(1) - Listar de Pastas")
         print("\t(2) - Baixar PlayList do Youtube")
         print("\t(0) - Fechar Programa")
         print("---------------------------------------------------------------------------------------------")
@@ -74,43 +74,62 @@ def play_menu(path):
         os.system('clear')
         print("---------------------------------- Lista de Reprodução -------------------------------------")
         print("pasta atual: "+path+"\n\n")
-        print("\t(1) - Listar Videos")
-        print("\t(2) - Reproduzir Lista")
+        print("\t(1) - Listar Videos(default = title and ascendent)\n\t\t(options sort: -dr = duration, -dt = date, -D = descendent)")
+        print("\t(2) - Reproduzir Lista(default = title and ascendent)")
         print("\t(3) - Reproduzir video")
         print("\t(4) - Voltar para Lista de Pastas")
         print("\t(0) - Fechar Programa")
         print("---------------------------------------------------------------------------------------------")
         try:
-            op = int(input("Opcoes(Digite o NUMERO Correspondente): "))
+            op = input("Opcoes(Digite o NUMERO Correspondente): ")
         except ValueError:
             print("Digite um valor valido")
             continue
         finally:
-            if op == 0:
+            if op == '0':
                 exit()
-            elif op == 1:
+            elif op[0] == '1':
+                op_field = 0    # campo a ser ordenado (title, duration, date)
+                op_ord = 0      # ordenacao (ascendente ou descendente 0 - asc, 1 - desc)
+                if '-dr' in op:
+                    op_field = 1
+                elif '-dt' in op:
+                    op_field = 2
+                
+                if '-D' in op:
+                    op_ord = 1
+
                 videos = get_movies(path)
-                list_movies(videos)
+                list_movies(videos, op_field, op_ord)
                 input()
-            elif op == 2:
+            elif op[0] == '2':
+                op_field = 0    # campo a ser ordenado (title, duration, date)
+                op_ord = 0      # ordenacao (ascendente ou descendente 0 - asc, 1 - desc)
+                if '-dr' in op:
+                    op_field = 1
+                elif '-dt' in op:
+                    op_field = 2
+                
+                if '-D' in op:
+                    op_ord = 1
+
                 videos = get_movies(path)
-                list_movies(videos)
+                videos = list_movies(videos, op_field, op_ord)
                 print("---------------------------------------------------------------------------------------------")
                 for v in videos:
-                    play_movie(path, v[0])
+                    play_movie(path, videos, v[0])
                     if v != videos[-1]:
                         op_play = str(input("Continuar lista de Reprodução?[S/N]"))
                         if op_play.lower() == 'n':
                             break
-                input()
-            elif op == 3:
+            elif op == '3':
                 videos = get_movies(path)
                 print("---------------------------------------------------------------------------------------------")
                 list_movies(videos)
                 print("---------------------------------------------------------------------------------------------")
                 title = str(input("Video a ser reproduzido('nomevideo.mp4' ou 'indice'):"))
                 play_movie(path, videos, title)
-            elif op == 4:
+            elif op == '4':
                 list_menu()
 
 

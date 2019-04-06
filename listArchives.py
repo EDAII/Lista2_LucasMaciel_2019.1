@@ -1,6 +1,6 @@
 import os
 import fnmatch
-from searchMethods import *
+from sortMethods import *
 import subprocess
 import re
 
@@ -36,13 +36,24 @@ def get_movies(path):
         print("Pasta nao encontrada")
 
 
-def list_movies(videos=[]):
+def list_movies(videos=[], field = 0, ord = 0):
+    field_sort = 'titulo'
+    ord_sort = 'ascendente'
+    if field == 1:
+        field_sort = 'duracao do video'
+    elif field == 2:
+        field_sort = 'data'
+    
+    if ord == 1:
+        ord_sort = 'descendente'
+
     print("---------------------------------------------------------------------------------------------")
-    print("Videos Encontrados na Pasta:\n")
-    videos = insertion_sort(videos)
+    print("Videos Encontrados na Pasta (ordenacao = "+field_sort+", "+ord_sort+"):\n")
+    videos = insertion_sort(videos, field, ord)
     for i in range(len(videos)):
         print(i, "-", end="\t")
         print(videos[i][0]+"\t"+videos[i][1]+"\t"+videos[i][2])
+    return videos
 
 
 def list_dir():

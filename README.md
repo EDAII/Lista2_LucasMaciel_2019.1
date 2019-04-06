@@ -1,4 +1,4 @@
-# Lista 2 -  EDA2 2019-1
+# Lista 2 - EDA2 2019-1 - PlayTube Terminator
 
 nome | matrícula
 -|-

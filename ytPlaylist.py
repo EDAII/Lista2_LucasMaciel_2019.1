@@ -68,16 +68,16 @@ def getPageHtml(url):
         exit(1)
 
 def getPlaylistUrlID(url):
-    # if 'list=' in url:
-    eq_idx = url.index('=') + 1
-    pl_id = url[eq_idx:]
-    if '&' in url:
-        amp = url.index('&')
-        pl_id = url[eq_idx:amp]
-    return pl_id   
-    # else:
-    #     print(url, "is not a youtube playlist.")
-    #     exit(1)
+    if 'list=' in url:
+        eq_idx = url.index('=') + 1
+        pl_id = url[eq_idx:]
+        if '&' in url:
+            amp = url.index('&')
+            pl_id = url[eq_idx:amp]
+        return pl_id   
+    else:
+        print(url, "Não é uma Playlist do Youtube.")
+        exit(1)
 
 def getFinalVideoUrl(vid_urls):
     final_urls = []
@@ -96,7 +96,7 @@ def getPlaylistVideoUrls(page_content, url):
 
     if vid_url_matches:
         final_vid_urls = getFinalVideoUrl(vid_url_matches)
-        print("Found",len(final_vid_urls),"videos in playlist.")
+        print("Econtrado",len(final_vid_urls),"videos na Playlist.")
         printUrls(final_vid_urls)
         return final_vid_urls
     else:
