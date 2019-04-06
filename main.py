@@ -162,7 +162,7 @@ def download_menu():
             exit()
         elif op == 1:
             try:
-                args = str(input("Digite a url da Playlist: "))
+                args = str(input("Digite a url da Playlist(https://www.youtube.com/playlist?list=url pasta(opcional)): "))
                 args = args.split()
                 url = args[0]
 
