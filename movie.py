@@ -14,7 +14,8 @@ def play_movie(path, videos, title):
         print("Reproduzindo: "+title)
         pygame.display.set_caption(title)
         clip = VideoFileClip(path+"/"+title)
-        clip.preview()
+        clipresized = clip.resize (width=500, height=400)
+        clipresized.preview()
         pygame.quit()
     except:
         print("Video nao encontrado")
